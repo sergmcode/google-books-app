@@ -3,3 +3,4 @@ npm i redux react-redux @types/react-redux
 npm i redux-thunk
 npm i react-router-dom @types/react-router-dom
 npm i antd
+npm i axios

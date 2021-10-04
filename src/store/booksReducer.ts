@@ -4,7 +4,14 @@ const initialState: IBookState = {
   books: [],
   loading: false,
   error: "",
-  currentBookId: ""
+  currentBookId: "",
+  query: "",
+  startIndex: "0",
+  maxResults: "40",
+  orderBy: "relevance",
+  category: "all",
+  numOfItems: 40,
+  scrollPosition: 0,
 }
 
 export const bookReducer = (state: IBookState = initialState, action: any): IBookState => {
@@ -17,6 +24,16 @@ export const bookReducer = (state: IBookState = initialState, action: any): IBoo
       return { ...state, error: action.payload }
     case EBookActionTypes.SET_LOADING:
       return { ...state, loading: action.payload }
+    case EBookActionTypes.SET_QUERY:
+      return { ...state, query: action.payload }
+    case EBookActionTypes.SET_ORDER_BY:
+      return { ...state, orderBy: action.payload }
+    case EBookActionTypes.SET_CATEGORY:
+      return { ...state, category: action.payload }
+    case EBookActionTypes.SET_NUM_OF_ITEMS:
+      return { ...state, numOfItems: action.payload }
+    case EBookActionTypes.SET_SCROLL_POSITION:
+      return { ...state, scrollPosition: action.payload }
     default:
       return state
   }

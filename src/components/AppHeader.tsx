@@ -1,8 +1,9 @@
 import { Button, Input, Select } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import { populateStoreWithTestDataThunk } from '../store/booksActionCreators'
+import { fetchBooksAPI } from '../store/booksActionCreators'
+import { EBookActionTypes } from '../store/booksTypes'
 import { useTypedSelector } from '../store/hooks'
 
 interface Props {
@@ -15,13 +16,44 @@ const AppHeader = (props: Props) => {
 
   const dispatch = useDispatch()
   const books = useTypedSelector(state => state.books.books)
+  
 
-  const onClick = () => {
-    dispatch(populateStoreWithTestDataThunk());
+  const [query, setQuery] = useState<string>('')
+  const [sort, setSort] = useState<string>('relevance') // orderBy
+  const [category, setCategory] = useState<string>('all') // subject:
+
+  useEffect(() => {
+    searchBooks()
+  }, [sort, category])
+
+  const searchBooks = () => {
+    if(query !== ''){
+      dispatch(fetchBooksAPI(query, category, '0', '40', sort))
+    }
     history.push("/");
   }
 
-  useEffect(() => {
+  const onClick = () => {
+    searchBooks();
+  }
+
+  const onChangeSort = (value: string) => {
+    setSort(value);
+    dispatch({ type: EBookActionTypes.SET_ORDER_BY, payload: value })
+  }
+
+  const onChangeCategory = (value: string) => {
+    setCategory(value);
+    dispatch({ type: EBookActionTypes.SET_CATEGORY, payload: value })
+  }
+
+  const onKeyDownInput = (e: any) => {
+    if(e.code === "Enter"){
+      searchBooks();
+    }
+  }
+
+  useEffect(() => { // logging
     console.log(books)
   }, [books])
 
@@ -48,6 +80,12 @@ const AppHeader = (props: Props) => {
           style={{
             width: 200,
           }}
+          value={query}
+          onChange={(e)=>{
+            setQuery(e.target.value);
+            dispatch({ type: EBookActionTypes.SET_QUERY, payload: e.target.value })
+          }}
+          onKeyDown={onKeyDownInput}
         />
         <Button
           onClick={onClick}
@@ -72,16 +110,17 @@ const AppHeader = (props: Props) => {
           Sorting by
         </div>
         <Select
-          defaultValue="relevant"
+          defaultValue="relevance"
           style={{
             width: 100,
             margin: 10
           }}
+          onChange={onChangeSort}
         >
           <Select.Option
-            value="relevant"
+            value="relevance"
           >
-            relevant
+            relevance
           </Select.Option>
           <Select.Option
             value="newest"
@@ -104,6 +143,7 @@ const AppHeader = (props: Props) => {
             width: 100,
             margin: 10
           }}
+          onChange={onChangeCategory}
         >
           <Select.Option
             value="all"
