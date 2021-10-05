@@ -1,3 +1,4 @@
+import { tuple } from "antd/lib/_util/type";
 import axios from "axios";
 import { TAppDispatch, TRootState } from ".";
 import { EBookActionTypes, IBook } from "./booksTypes";
@@ -10,6 +11,7 @@ export function fetchBooksAPI (q: string, subject: string, startIndex: string, m
       }
       const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}`;
       console.log(url);
+      dispatch({ type: EBookActionTypes.SET_LOADING, payload: true });
       axios.get(url)
       .then((response: any) => {
          const books: IBook[] = [];
@@ -28,6 +30,7 @@ export function fetchBooksAPI (q: string, subject: string, startIndex: string, m
             }
          }
          dispatch({ type: EBookActionTypes.SET_BOOKS, payload: books })
+         dispatch({ type: EBookActionTypes.SET_LOADING, payload: false });
       })
    }
 }
@@ -42,6 +45,7 @@ export function fetchMoreBooks (startIndex: string) {
       let orderBy = getStore().books.orderBy;
       const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${startIndex}&maxResults=40&orderBy=${orderBy}`;
       console.log('[ fetchMoreBooks url: ]', url);
+      dispatch({ type: EBookActionTypes.SET_LOADING, payload: true });
       axios.get(url)
       .then((response: any) => {
          const books: IBook[] = [];
@@ -58,6 +62,7 @@ export function fetchMoreBooks (startIndex: string) {
             }
          }
          dispatch({ type: EBookActionTypes.SET_BOOKS, payload: [ ...getStore().books.books, ...books ] })
+         dispatch({ type: EBookActionTypes.SET_LOADING, payload: false });
       })
    }
 }

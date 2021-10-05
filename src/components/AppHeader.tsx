@@ -1,4 +1,4 @@
-import { Button, Input, Select } from 'antd'
+import { Button, Input, Select, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
@@ -16,7 +16,7 @@ const AppHeader = (props: Props) => {
 
   const dispatch = useDispatch()
   const books = useTypedSelector(state => state.books.books)
-  
+  const isLoading = useTypedSelector(state => state.books.loading)
 
   const [query, setQuery] = useState<string>('')
   const [sort, setSort] = useState<string>('relevance') // orderBy
@@ -92,6 +92,9 @@ const AppHeader = (props: Props) => {
         >
           Search books
         </Button>
+        <Spin 
+          spinning={isLoading}
+        />
       </div>
       <div 
         className="AppHeader__bottom"

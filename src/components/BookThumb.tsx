@@ -26,8 +26,8 @@ const BookThumb = (props: Props) => {
       className="BookThumb"
       style={{
         margin: 10,
-        width: 200,
-        height: 300,
+        width: 400,
+        height: 400,
         backgroundColor: "crimson",
         display: "flex",
         flexDirection: "column",
@@ -42,8 +42,8 @@ const BookThumb = (props: Props) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: 150,
-          height: 200,
+          // width: 150,
+          height: 150,
           backgroundColor: "darkblue",
         }}
       >
@@ -58,7 +58,7 @@ const BookThumb = (props: Props) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column",
+          // flexDirection: "column",
           width: 150,
           height: 100,
           backgroundColor: "darkorange",
