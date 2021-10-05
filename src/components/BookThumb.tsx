@@ -1,3 +1,4 @@
+import { Card } from 'antd'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
@@ -21,22 +22,77 @@ const BookThumb = (props: Props) => {
     history.push("/info")
   }
 
+  const authorsString = () => {
+    let str = props.authors?.join(', ')
+    if(str){
+      if(str.length > 18){
+        return str.slice(0,18) + '...'
+      } else {
+        return str
+      }
+    } else {
+      return ''
+    }
+  }
+
+  const categoriesString = () => {
+    let str = props.categories?.join(', ')
+    if(str){
+      if(str.length > 18){
+        return str.slice(0,18) + '...'
+      } else {
+        return str
+      }
+    } else {
+      return ''
+    }
+  }
+
   return (
     <div
       className="BookThumb"
-      style={{
-        margin: 10,
-        width: 400,
-        height: 400,
-        backgroundColor: "crimson",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        cursor: "pointer"
-      }}
+      // style={{
+      //   margin: 10,
+      //   width: 400,
+      //   height: 400,
+      //   backgroundColor: "crimson",
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "center",
+      //   cursor: "pointer"
+      // }}
       onClick={onClick}
     >
-      <div 
+      <Card
+        title={props.title}
+        hoverable
+        style={{
+          width: 250,
+          height: 300,
+          margin: 10,
+        }}
+        extra={<a href="#">More</a>}
+        
+      >
+        <div
+          style={{
+            height: 150,
+          }}
+        > 
+          <img src={props.img} style={{
+            maxWidth: 100,
+            maxHeight: 120,
+          }} /> 
+        </div>
+        <div>
+          { authorsString() }
+        </div>
+        <div>
+          {categoriesString()}
+        </div>
+        
+      </Card>
+      {/* <div 
         className="BookThumb__top"
         style={{
           display: "flex",
@@ -67,7 +123,7 @@ const BookThumb = (props: Props) => {
         <p>{props.categories}</p>
         <p>{props.title}</p>
         <p>{props.authors}</p>
-      </div>
+      </div> */}
     </div>
   )
 }
