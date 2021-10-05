@@ -1,3 +1,4 @@
+import { Card } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { IBook } from '../store/booksTypes'
@@ -27,13 +28,63 @@ const BookInfo = (props: Props) => {
   return (
     <div
       className="BookInfo"
-      style={{
-        display: "flex",
-        backgroundColor: "lightcyan"
-      }}
       onClick={onClick}
     >
-      <div
+      <Card
+        title={currentBook?.title}
+        style={{
+          width: 800,
+        }}
+      >
+        <div
+          className="Card__content"
+          style={{
+            display: "flex",
+          }}
+        >
+          <div
+            className="Card__imageContainer"
+            style={{
+              width: 300,
+              height: 400,
+              display: "flex",
+              flexShrink: 0,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img 
+              style={{
+                maxWidth: 250,
+                maxHeight: 350,
+              }}
+              src={currentBook?.img}
+            />
+          </div>
+          <div
+            className="Card__bookInfo"
+          >
+            <div
+              style={{
+                fontSize: '1.5rem'
+              }}
+            >
+              {currentBook?.authors?.join(', ')}
+            </div>
+            <div
+              style={{
+                fontSize: '1.2rem'
+              }}
+            >
+              {currentBook?.categories?.join(', ')}
+            </div>
+            <div>
+              {currentBook?.description}
+            </div>
+          </div>
+        </div>
+      </Card>
+      {/* <div
         className="BookInfo__left"
         style={{
           display: "flex",
@@ -63,9 +114,9 @@ const BookInfo = (props: Props) => {
         <b>{currentBook?.title}</b>
         <b>{currentBook?.authors}</b>
         <b>{currentBook?.description}</b>
-      </div>
+      </div> */}
     </div>
-  )
+  );
 }
 
 export default BookInfo

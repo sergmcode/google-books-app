@@ -15,7 +15,7 @@ const AppContent = (props: Props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "beige"
+        
       }}  
     >
       <Switch>
