@@ -1,6 +1,7 @@
 import { Card } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 import { IBook } from '../store/booksTypes'
 import { useTypedSelector } from '../store/hooks'
 
@@ -20,21 +21,22 @@ const BookInfo = (props: Props) => {
   useEffect(()=>{
     setCurrentBook(books.find(book => book.id === currentBookId))
   }, [])
-
-  const onClick = () => {
-    history.push("/");
-  }
   
   return (
     <div
       className="BookInfo"
-      onClick={onClick}
     >
       <Card
         title={currentBook?.title}
         style={{
           width: 800,
         }}
+        extra={
+          <div>
+            <a href={currentBook?.infoLink}>More</a>&nbsp;
+            <Link to="/">Back</Link>
+          </div>
+        }
       >
         <div
           className="Card__content"

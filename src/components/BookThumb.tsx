@@ -51,16 +51,6 @@ const BookThumb = (props: Props) => {
   return (
     <div
       className="BookThumb"
-      // style={{
-      //   margin: 10,
-      //   width: 400,
-      //   height: 400,
-      //   backgroundColor: "crimson",
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   alignItems: "center",
-      //   cursor: "pointer"
-      // }}
       onClick={onClick}
     >
       <Card
@@ -71,8 +61,6 @@ const BookThumb = (props: Props) => {
           height: 300,
           margin: 10,
         }}
-        extra={<a href="#">More</a>}
-        
       >
         <div
           style={{

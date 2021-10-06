@@ -5,6 +5,7 @@ export interface IBook {
   description: string;
   img: string;
   categories: string[];
+  infoLink: string;
 }
 
 export interface IBookState {

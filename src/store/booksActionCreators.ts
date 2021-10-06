@@ -14,9 +14,9 @@ export function fetchBooksAPI (q: string, subject: string, startIndex: string, m
       dispatch({ type: EBookActionTypes.SET_LOADING, payload: true });
       axios.get(url)
       .then((response: any) => {
+         console.log(response)
          const books: IBook[] = [];
          if(response.data.items){
-            console.log(response); //
             dispatch({ type: EBookActionTypes.SET_NUM_OF_ITEMS, payload: Number(response.data?.totalItems) })
             for(const item of response.data.items){
                books.push({
@@ -25,7 +25,8 @@ export function fetchBooksAPI (q: string, subject: string, startIndex: string, m
                   authors: item.volumeInfo?.authors,
                   categories: item.volumeInfo?.categories,
                   description: item.volumeInfo?.description,
-                  img: item.volumeInfo?.imageLinks?.thumbnail
+                  img: item.volumeInfo?.imageLinks?.thumbnail,
+                  infoLink: item.volumeInfo?.infoLink,
                })
             }
          }
@@ -57,7 +58,8 @@ export function fetchMoreBooks (startIndex: string) {
                   authors: item.volumeInfo?.authors,
                   categories: item.volumeInfo?.categories,
                   description: item.volumeInfo?.description,
-                  img: item.volumeInfo?.imageLinks?.thumbnail
+                  img: item.volumeInfo?.imageLinks?.thumbnail,
+                  infoLink: item.volumeInfo?.infoLink,
                })
             }
          }
