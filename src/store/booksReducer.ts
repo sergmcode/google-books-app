@@ -10,7 +10,7 @@ const initialState: IBookState = {
   maxResults: "40",
   orderBy: "relevance",
   category: "all",
-  numOfItems: 40,
+  numOfItems: 0,
   scrollPosition: 0,
 }
 

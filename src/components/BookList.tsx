@@ -11,9 +11,9 @@ interface Props {
   
 }
 
-
-
 const BookList = (props: Props) => {
+
+
 
   const books = useTypedSelector(state => state.books.books)
   const totalNumberOfItems = useTypedSelector(state => state.books.numOfItems);
@@ -50,6 +50,11 @@ const BookList = (props: Props) => {
         dispatch({ type: EBookActionTypes.SET_SCROLL_POSITION, payload: window.scrollY }) // set scroll position
       }}
     >
+      <div
+        className="BookList__totalNumber"
+      >
+        { totalNumberOfItems > 0 && <div>Total number of books found: {totalNumberOfItems}</div>}
+      </div>
       <InfiniteScroll
         dataLength={books.length}
         next={fetchMoreData}
