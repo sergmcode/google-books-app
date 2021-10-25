@@ -28,6 +28,7 @@ const AppHeader = (props: Props) => {
 
   const searchBooks = () => {
     if (query !== "") {
+      dispatch({ type: EBookActionTypes.SET_BOOKS, payload: [] });
       dispatch(fetchBooksAPI());
       dispatch({ type: EBookActionTypes.SET_SCROLL_POSITION, payload: 0 });
     }
