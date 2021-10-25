@@ -29,7 +29,7 @@ const AppHeader = (props: Props) => {
   const searchBooks = () => {
     if (query !== "") {
       dispatch(fetchBooksAPI(query, category, "0", "40", sort));
-      dispatch({ type: "SET_SCROLL_POSITION", payload: 0 });
+      dispatch({ type: EBookActionTypes.SET_SCROLL_POSITION, payload: 0 });
     }
     history.push("/");
   };
