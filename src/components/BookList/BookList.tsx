@@ -11,32 +11,26 @@ import "./BookList.css";
 interface Props {}
 
 const BookList = (props: Props) => {
-  const books = useTypedSelector((state) => state.books.books);
   const totalNumberOfItems = useTypedSelector(
     (state) => state.books.numOfItems
   );
   const dispatch = useDispatch();
-  const [hasMore, setHasMore] = useState(true);
   const scrollPosition = useTypedSelector(
     (state) => state.books.scrollPosition
   );
 
+  const [hasMore, setHasMore] = useState(true);
+
   const appState = useTypedSelector((state) => state);
 
   const fetchMoreData = () => {
-    console.log(
-      "TOTAL NUMBER OF ITEMS: ",
-      totalNumberOfItems,
-      "BOOKS LENGTH: ",
-      books.length
-    );
-    if (books.length === totalNumberOfItems) {
+    console.log("books.length: ", appState.books.books.length, "numOfItems: ", appState.books.numOfItems)
+    if (appState.books.books.length >= appState.books.numOfItems) {
       setHasMore(false);
     } else {
       setHasMore(true);
+      dispatch(fetchMoreBooksAPI(appState.books.books.length.toString()));
     }
-    let nextIndex = books.length;
-    dispatch(fetchMoreBooksAPI(nextIndex.toString()));
   };
 
   const onThumbClick = () => {
@@ -66,7 +60,7 @@ const BookList = (props: Props) => {
         )}
       </div>
       <InfiniteScroll
-        dataLength={books.length}
+        dataLength={appState.books.books.length}
         next={fetchMoreData}
         hasMore={hasMore}
         loader={<div></div>}
@@ -76,7 +70,7 @@ const BookList = (props: Props) => {
           overflow: "hidden",
         }}
       >
-        {books.map((book, index) => {
+        {appState.books.books.map((book, index) => {
           return (
             <BookThumb
               id={book.id}
