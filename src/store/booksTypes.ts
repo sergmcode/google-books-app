@@ -33,4 +33,3 @@ export enum EBookActionTypes {
   SET_NUM_OF_ITEMS,
   SET_SCROLL_POSITION,
 }
-

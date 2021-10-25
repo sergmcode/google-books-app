@@ -1,0 +1,11 @@
+.dark {
+  background-color: rgb(73, 73, 73);
+}
+
+.BookList__totalNumber {
+  padding: 20px;
+}
+
+.infinite-scroll-component {
+  justify-content: center;
+}

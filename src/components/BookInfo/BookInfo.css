@@ -1,0 +1,52 @@
+.BookInfo {
+  display: flex;
+  min-width: 320px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.BookInfo div {
+  margin: 5px;
+}
+
+.BookInfo__imageContainer {
+  display: inline-flex;
+  width: 320px;
+  height: 320px;
+  background-color: rgb(221, 221, 221);
+  justify-content: center;
+  align-items: center;
+}
+
+.BookInfo__imageContainer img {
+  max-width: 300px;
+  max-height: 300px;
+  box-shadow: 5px 5px 15px 5px rgba(41, 41, 41, 0.5);
+}
+
+.BookInfo__text {
+  display: inline-block;
+  min-width: 320px;
+  max-width: 600px;
+}
+
+.BookInfo__textCategories {
+  display: flex;
+}
+
+.BookInfo__textTitle {
+  font-weight: 700;
+  font-size: large;
+}
+
+.BookInfo__textDescription {
+  border: 1px solid rgb(207, 207, 207);
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.BookInfo__textMoreBackButtons {
+
+}
