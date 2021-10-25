@@ -81,7 +81,7 @@ const AppHeader = (props: Props) => {
           style={{ marginLeft: 10 }}
           className="AppHeader__item"
         >
-          {!isLoading ? "Search books" : <Spin spinning={isLoading} />}
+          {!isLoading ? "Search books" : "Searching..."}
         </Button>
       </div>
 
