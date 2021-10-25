@@ -48,7 +48,6 @@ const BookList = (props: Props) => {
 
   useEffect(() => {
     window.scrollTo(0, scrollPosition);
-    console.log("scroll position: ", scrollPosition); // scroll
   }, []);
 
   return (
