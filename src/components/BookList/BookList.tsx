@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
-import { fetchMoreBooks } from "../../store/booksActionCreators";
+import { fetchMoreBooksAPI } from "../../store/booksActionCreators";
 import { EBookActionTypes } from "../../store/booksTypes";
 import { useTypedSelector } from "../../store/hooks";
 import BookThumb from "../BookThumb/BookThumb";
@@ -36,7 +36,7 @@ const BookList = (props: Props) => {
       setHasMore(true);
     }
     let nextIndex = books.length;
-    dispatch(fetchMoreBooks(nextIndex.toString()));
+    dispatch(fetchMoreBooksAPI(nextIndex.toString()));
   };
 
   const onThumbClick = () => {

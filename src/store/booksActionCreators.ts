@@ -4,22 +4,19 @@ import { TAppDispatch, TRootState } from ".";
 import { EBookActionTypes, IBook } from "./booksTypes";
 
 export function fetchBooksAPI(
-  q: string,
-  subject: string,
-  startIndex: string,
-  maxResults: string,
-  orderBy: string
+  
 ) {
   return (dispatch: TAppDispatch, getStore: () => TRootState) => {
-    let query = q.split(" ").join("+");
+
+    let query = getStore().books.query.split(" ").join("+");
+    let subject = getStore().books.category;
     if (subject !== "all") {
       query += `+subject:${subject}`;
     }
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}`;
-    console.log(url);
+    let orderBy = getStore().books.orderBy;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${0}&maxResults=${40}&orderBy=${orderBy}`;
     dispatch({ type: EBookActionTypes.SET_LOADING, payload: true });
     axios.get(url).then((response: any) => {
-      console.log(response);
       const books: IBook[] = [];
       if (response.data.items) {
         dispatch({
@@ -44,7 +41,7 @@ export function fetchBooksAPI(
   };
 }
 
-export function fetchMoreBooks(startIndex: string) {
+export function fetchMoreBooksAPI(startIndex: string) {
   return (dispatch: TAppDispatch, getStore: () => TRootState) => {
     let query = getStore().books.query.split(" ").join("+");
     let subject = getStore().books.category;
@@ -53,7 +50,6 @@ export function fetchMoreBooks(startIndex: string) {
     }
     let orderBy = getStore().books.orderBy;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${startIndex}&maxResults=40&orderBy=${orderBy}`;
-    console.log("[ fetchMoreBooks url: ]", url);
     dispatch({ type: EBookActionTypes.SET_LOADING, payload: true });
     axios.get(url).then((response: any) => {
       const books: IBook[] = [];
