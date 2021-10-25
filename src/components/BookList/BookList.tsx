@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -11,20 +12,11 @@ import "./BookList.css";
 interface Props {}
 
 const BookList = (props: Props) => {
-  const totalNumberOfItems = useTypedSelector(
-    (state) => state.books.numOfItems
-  );
   const dispatch = useDispatch();
-  const scrollPosition = useTypedSelector(
-    (state) => state.books.scrollPosition
-  );
-
   const [hasMore, setHasMore] = useState(true);
-
   const appState = useTypedSelector((state) => state);
 
   const fetchMoreData = () => {
-    console.log("books.length: ", appState.books.books.length, "numOfItems: ", appState.books.numOfItems)
     if (appState.books.books.length >= appState.books.numOfItems) {
       setHasMore(false);
     } else {
@@ -41,7 +33,7 @@ const BookList = (props: Props) => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, scrollPosition);
+    window.scrollTo(0, appState.books.scrollPosition);
   }, []);
 
   return (
@@ -55,15 +47,19 @@ const BookList = (props: Props) => {
       onClick={onThumbClick}
     >
       <div className="BookList__totalNumber">
-        {totalNumberOfItems > 0 && (
-          <div>Total number of books found: {totalNumberOfItems}</div>
+        {appState.books.numOfItems > 0 && (
+          <div>Total number of books found: {appState.books.numOfItems}</div>
         )}
       </div>
       <InfiniteScroll
         dataLength={appState.books.books.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={<div></div>}
+        loader={
+          <div>
+            <Spin spinning={appState.books.loading} />
+          </div>
+        }
         style={{
           display: "flex",
           flexWrap: "wrap",
