@@ -31,7 +31,7 @@ const BookInfo = (props: Props) => {
             <Link to="/">Back</Link>{" "}
           </span>
           <span>
-            <a href={currentBook?.infoLink}>More info</a>{" "}
+            <a href={currentBook?.infoLink}>More</a>{" "}
           </span>
         </div>
         <div className="BookInfo__textCategories">

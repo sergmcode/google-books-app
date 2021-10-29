@@ -13,9 +13,6 @@ const AppHeader = (props: Props) => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const books = useTypedSelector((state) => state.books.books);
-  const isLoading = useTypedSelector((state) => state.books.loading);
-
   const appState = useTypedSelector((state) => state);
 
   const [query, setQuery] = useState<string>("");
@@ -81,7 +78,7 @@ const AppHeader = (props: Props) => {
           style={{ marginLeft: 10 }}
           className="AppHeader__item"
         >
-          {!isLoading ? "Search books" : "Searching..."}
+          {!appState.books.loading ? "Search books" : "Searching..."}
         </Button>
       </div>
 
